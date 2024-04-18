@@ -7,7 +7,7 @@ drop schema "public" cascade;
 create schema "public";
 CREATE TABLE "public"."users" (
   "userId" serial PRIMARY KEY,
-  "username" text not null,
+  "userName" text not null,
   "hashPassword" text not null,
   "updatedAt" timestamptz(6),
   "createdAt" timestamptz(6) not null default now()

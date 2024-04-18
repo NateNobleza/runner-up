@@ -22,6 +22,21 @@ const db = new pg.Pool({
 const app = express();
 app.use(express.json());
 
+app.get('/api/users', async (req, res, next) =>{
+  try{
+const sql = `
+select * from "users"
+order by "userId"
+`
+const result = await db.query(sql)
+const entries = result.rows
+if(!entries) throw new ClientError(400, 'Entries not found')
+res.json(entries)
+  }catch(err){
+    next(err)
+  }
+})
+
 app.get('/api/runs', async (req, res, next) => {
   try {
     const sql = `
@@ -58,7 +73,7 @@ app.get('/api/runs/:runId', async (req, res, next) => {
   }
 });
 
-app.post('/api/runs', async (req, res, next) => {
+app.post('/api/runs/:runId', async (req, res, next) => {
   try {
     const { time, distance, date, weather, userId } = req.body;
     if (!time || !distance || !date || !weather || !userId)
@@ -76,6 +91,7 @@ app.post('/api/runs', async (req, res, next) => {
     ];
     const result = await db.query(sql, params);
     const [entry] = result.rows;
+    console.log(entry)
     if (!entry) throw new ClientError(404, 'entry not found');
     res.status(201).json(entry);
   } catch (err) {
