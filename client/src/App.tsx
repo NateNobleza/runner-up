@@ -1,11 +1,10 @@
 import './App.css';
-import { ElementForm } from './pages/form-elements';
+import { HomePage } from './pages/home-page'
+
 export default function App() {
-
-
   return (
     <>
-      <ElementForm/>
+      <HomePage/>
     </>
   );
 }

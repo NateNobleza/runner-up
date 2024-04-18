@@ -1,13 +1,19 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-export function ElementForm() {
-  const [time, setTime] = useState('');
-  const [distance, setDistance] = useState('');
-  const [date, setDate] = useState('');
-  const [weather, setWeather] = useState('');
-  const [userId, setUserId] = useState('');
+type ElementFormProps = {
+  // Any additional props you might want to pass
+}
 
-  const handleSubmit = async (event) => {
+export function ElementForm({}: ElementFormProps) {
+  const [formData, setFormData] = useState({
+    time: '',
+    distance: '',
+    date: '',
+    weather: '',
+    userId: '',
+  });
+
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     try {
@@ -16,13 +22,7 @@ export function ElementForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          time,
-          distance,
-          date,
-          weather,
-          userId,
-        }),
+        body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
@@ -30,11 +30,13 @@ export function ElementForm() {
       }
 
       // Clear form fields after successful submission
-      setTime('');
-      setDistance('');
-      setDate('');
-      setWeather('');
-      setUserId('');
+      setFormData({
+        time: '',
+        distance: '',
+        date: '',
+        weather: '',
+        userId: '',
+      });
 
       console.log('Form submitted successfully!'); // Log success message
     } catch (error) {
@@ -50,8 +52,8 @@ export function ElementForm() {
           type="text"
           id="time"
           name="time"
-          value={time}
-          onChange={(e) => setTime(e.target.value)}
+          value={formData.time}
+          onChange={(e) => setFormData({ ...formData, time: e.target.value })}
           placeholder="HH:MM"
         />
       </div>
@@ -62,8 +64,8 @@ export function ElementForm() {
           type="number"
           id="distance"
           name="distance"
-          value={distance}
-          onChange={(e) => setDistance(e.target.value)}
+          value={formData.distance}
+          onChange={(e) => setFormData({ ...formData, distance: e.target.value })}
         />
       </div>
 
@@ -73,8 +75,8 @@ export function ElementForm() {
           type="date"
           id="date"
           name="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
+          value={formData.date}
+          onChange={(e) => setFormData({ ...formData, date: e.target.value })}
         />
       </div>
 
@@ -83,8 +85,8 @@ export function ElementForm() {
         <select
           id="weather"
           name="weather"
-          value={weather}
-          onChange={(e) => setWeather(e.target.value)}
+          value={formData.weather}
+          onChange={(e) => setFormData({ ...formData, weather: e.target.value })}
         >
           <option value="sunny">Sunny</option>
           <option value="cloudy">Cloudy</option>
@@ -99,8 +101,8 @@ export function ElementForm() {
           type="text"
           id="userId"
           name="userId"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
+          value={formData.userId}
+          onChange={(e) => setFormData({ ...formData, userId: e.target.value })}
         />
       </div>
 

@@ -22,20 +22,39 @@ const db = new pg.Pool({
 const app = express();
 app.use(express.json());
 
-app.get('/api/users', async (req, res, next) =>{
-  try{
-const sql = `
+app.get('/api/users', async (req, res, next) => {
+  try {
+    const sql = `
 select * from "users"
 order by "userId"
-`
-const result = await db.query(sql)
-const entries = result.rows
-if(!entries) throw new ClientError(400, 'Entries not found')
-res.json(entries)
-  }catch(err){
-    next(err)
+`;
+    const result = await db.query(sql);
+    const entries = result.rows;
+    if (!entries) throw new ClientError(400, 'Entries not found');
+    res.json(entries);
+  } catch (err) {
+    next(err);
   }
-})
+});
+
+app.get('/api/users/:userId', async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    if (!Number.isInteger(+userId))
+      throw new ClientError(400, 'userId not a number');
+    const sql = `
+    select * users
+    where "userId" = $1
+    `;
+    const params = [userId as string];
+    const result = await db.query(sql, params);
+    const [users] = result.rows;
+    if (!users) throw new ClientError(400, `Entry ${userId} not found`);
+    res.json(users);
+  } catch (err) {
+    next(err);
+  }
+});
 
 app.get('/api/runs', async (req, res, next) => {
   try {
@@ -87,11 +106,11 @@ app.post('/api/runs/:runId', async (req, res, next) => {
       distance as string,
       date as string,
       weather as string,
-      userId as string
+      userId as string,
     ];
     const result = await db.query(sql, params);
     const [entry] = result.rows;
-    console.log(entry)
+    console.log(entry);
     if (!entry) throw new ClientError(404, 'entry not found');
     res.status(201).json(entry);
   } catch (err) {
@@ -128,23 +147,24 @@ app.put('/api/runs/:runId', async (req, res, next) => {
   }
 });
 
-app.delete('/api/runs/:runId', async(req, res, next)=>{
-  try{
+app.delete('/api/runs/:runId', async (req, res, next) => {
+  try {
     const { runId } = req.params;
-    if(!Number.isInteger(+runId)) throw new ClientError(400, 'runId not number')
+    if (!Number.isInteger(+runId))
+      throw new ClientError(400, 'runId not number');
     const sql = `
     delete from "runs"
     where "runId" = $1
     returning *
     `;
-    const params = [runId as string]
-    const result = await db.query(sql, params)
-    const [deletedEntry] = result.rows
-    if(!deletedEntry) throw new ClientError(400, 'deleted entry not found')
-  }catch(err){
-    next(err)
+    const params = [runId as string];
+    const result = await db.query(sql, params);
+    const [deletedEntry] = result.rows;
+    if (!deletedEntry) throw new ClientError(400, 'deleted entry not found');
+  } catch (err) {
+    next(err);
   }
-})
+});
 
 app.use(errorMiddleware);
 
