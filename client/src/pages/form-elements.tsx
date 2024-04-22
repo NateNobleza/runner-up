@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-
+import { useState } from 'react';
+import { Modal } from './updated-entries';
 type ElementFormProps = {
   // Any additional props you might want to pass
-}
+};
 
 export function ElementForm({}: ElementFormProps) {
   const [formData, setFormData] = useState({
@@ -12,7 +12,7 @@ export function ElementForm({}: ElementFormProps) {
     weather: '',
     userId: '',
   });
-
+  const [showModal, setShowModal] = useState(false);
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -44,6 +44,15 @@ export function ElementForm({}: ElementFormProps) {
     }
   };
 
+  const handleUpdate = () => {
+    setShowModal(true);
+    // Logic for handling update can be added here
+    console.log('Update button clicked!');
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false); // Hide modal
+  };
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -65,7 +74,9 @@ export function ElementForm({}: ElementFormProps) {
           id="distance"
           name="distance"
           value={formData.distance}
-          onChange={(e) => setFormData({ ...formData, distance: e.target.value })}
+          onChange={(e) =>
+            setFormData({ ...formData, distance: e.target.value })
+          }
         />
       </div>
 
@@ -86,8 +97,9 @@ export function ElementForm({}: ElementFormProps) {
           id="weather"
           name="weather"
           value={formData.weather}
-          onChange={(e) => setFormData({ ...formData, weather: e.target.value })}
-        >
+          onChange={(e) =>
+            setFormData({ ...formData, weather: e.target.value })
+          }>
           <option value="sunny">Sunny</option>
           <option value="cloudy">Cloudy</option>
           <option value="rainy">Rainy</option>
@@ -107,6 +119,14 @@ export function ElementForm({}: ElementFormProps) {
       </div>
 
       <button type="submit">Submit</button>
+      <button type="button" onClick={handleUpdate}>
+        Update
+      </button>
+      <Modal
+        isOpen={showModal}
+        updatedData={formData}
+        onClose={handleCloseModal}
+      />
     </form>
   );
 }
