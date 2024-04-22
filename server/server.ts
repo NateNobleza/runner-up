@@ -56,6 +56,70 @@ app.get('/api/users/:userId', async (req, res, next) => {
   }
 });
 
+app.post('api/users', async (req, res, next) => {
+  try {
+    const { userName, hashPassword } = req.body;
+    if (!userName || !hashPassword)
+      throw new ClientError(400, 'entry requires all inputs');
+    const sql = `
+    insert into "users" ("userName", "hashPassword")
+    values ($1, $2)
+    returning *;
+    `;
+    const params = [userName as string, hashPassword as string];
+    const result = await db.query(sql, params);
+    const [entry] = result.rows;
+    if (!entry) throw new ClientError(400, 'Entry not found');
+    res.status(201).json(entry);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.put('/api/users/:userId', async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    if (!Number.isInteger(+userId))
+      throw new ClientError(400, 'userId must be a number');
+    const { userName, hashPassword } = req.body;
+    if (!userName || !hashPassword)
+      throw new ClientError(400, 'userName and hashPassword needed');
+    const sql = `
+      update "users"
+      set "userName" = $1, "hashPassword" = $2
+      where "userId" = $3
+      returning *;
+      `;
+    const params = [userName as string, hashPassword as string];
+    const result = await db.query(sql, params);
+    const [updatedEntry] = result.rows;
+    if (!updatedEntry) throw new ClientError(400, 'not updated entry');
+    res.status(200).json(updatedEntry);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.delete('/api/users/:userId', async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    if (!Number.isInteger(+userId))
+      throw new ClientError(400, 'userId not a number');
+    const sql = `
+delete from "users"
+where "userId" = $1
+returning *;
+`;
+    const params = [userId as string];
+    const result = await db.query(sql, params);
+    const [deletedEntry] = result.rows;
+    if (!deletedEntry) throw new ClientError(400, 'deleted entry not found');
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+});
+
 app.get('/api/runs', async (req, res, next) => {
   try {
     const sql = `
