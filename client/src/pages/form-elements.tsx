@@ -11,7 +11,7 @@ import {
 
 export function ElementForm() {
   const { runId } = useParams();
-  const [isDeleting, setIsDeleting] = useState(false);
+  // const [isDeleting, setIsDeleting] = useState(false);
   const [formData, setFormData] = useState<Entry>({
     time: '',
     distance: '',
@@ -55,6 +55,7 @@ export function ElementForm() {
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    console.log(runId)
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const newEntry = Object.fromEntries(formData) as unknown as Entry;
@@ -79,7 +80,7 @@ export function ElementForm() {
   }
 
   const handleDelete = async (entryId: number) => {
-    setIsDeleting(true);
+    // setIsDeleting(true);
     try {
       await removeEntry(entryId);
       // After deleting an entry, refetch all entries to update the list
@@ -87,7 +88,7 @@ export function ElementForm() {
     } catch (error) {
       console.error('Error:', error);
     } finally {
-      setIsDeleting(false);
+      // setIsDeleting(false);
     }
   };
 
@@ -102,14 +103,12 @@ export function ElementForm() {
     }
   };
 
-  const handleLike = (entryId: number) => {
-    // Find the liked entry by ID
-    const likedEntry = allEntries.find((entry) => entry.runId === entryId);
-    if (likedEntry) {
-      // You can add the liked entry to the liked entries list here
-      console.log('Liked Entry:', likedEntry);
-    }
-  };
+
+  const handleUpdate = async (entryId: number) => {
+
+  }
+
+
 
   return (
     <form onSubmit={handleSubmit}>
@@ -178,18 +177,11 @@ export function ElementForm() {
               <button type="submit">Submit</button>
             </>
           )}
-          {runId && (
-            <div>
-              <button onClick={handleDelete} disabled={isDeleting}>
-                {isDeleting ? 'Deleting...' : 'Delete'}
-              </button>
-            </div>
-          )}
         </>
       )}
 
       <div>
-        <button onClick={handleReadEntries}>Read All Entries</button>
+        <button type='button' onClick={handleReadEntries}>Read All Entries</button>
       </div>
 
       {showEntries && (
@@ -200,12 +192,12 @@ export function ElementForm() {
               <li key={index}>
                 {entry.runId} - {entry.time} - {entry.distance} - {entry.date} -{' '}
                 {entry.weather}{' '}
-                <button
+                <button type='button'
                   onClick={() => entry.runId && handleDelete(entry.runId)}>
                   Delete
                 </button>
-                <button onClick={() => entry.runId && handleLike(entry.runId)}>
-                  Like
+                <button type='button' onClick={() => entry.runId && handleUpdate(entry.runId)}>
+                  Update
                 </button>
               </li>
             ))}
