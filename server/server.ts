@@ -156,10 +156,11 @@ app.get('/api/runs/:runId', async (req, res, next) => {
   }
 });
 
-app.post('/api/runs/:runId', async (req, res, next) => {
+app.post('/api/runs', async (req, res, next) => {
   try {
-    const { time, distance, date, weather, userId } = req.body;
-    if (!time || !distance || !date || !weather || !userId)
+    const userId = '1'
+    const { time, distance, date, weather } = req.body;
+    if (!time || !distance || !date || !weather )
       throw new ClientError(404, 'Entry requires all inputs');
     const sql = `insert into "runs"
     ("time", "distance", "date", "weather", "userId")

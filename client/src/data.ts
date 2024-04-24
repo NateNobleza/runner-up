@@ -1,4 +1,4 @@
-type Entry = {
+export type Entry = {
   runId?: number;
   date: string;
   distance: string;
@@ -6,29 +6,31 @@ type Entry = {
   weather: string;
 };
 
-async function readEntries() {
+export async function readEntries(): Promise<Entry[]> {
   try {
     const res = await fetch('/api/runs');
-    if (!res.ok) throw new Error('response connection not okay');
+    if (!res.ok) throw new Error('Response connection not OK');
     const result = await res.json();
     return result;
   } catch (err) {
-    console.log(err);
+    console.error(err);
+    return [];
   }
 }
 
-async function readEntry(runId: number) {
+export async function readEntry(runId: number): Promise<Entry | undefined> {
   try {
-    const res = await fetch('/api/runs/:runId');
-    if (!res.ok) throw new Error('response connection not okay');
+    const res = await fetch(`/api/runs/${runId}`);
+    if (!res.ok) throw new Error('Response connection not OK');
     const result = await res.json();
     return result;
   } catch (err) {
-    console.log(err);
+    console.error(err);
+    return undefined;
   }
 }
 
-async function addEntry(entry: Entry) {
+export async function addEntry(entry: Entry): Promise<Entry | undefined> {
   try {
     const res = await fetch('/api/runs', {
       method: 'POST',
@@ -38,7 +40,39 @@ async function addEntry(entry: Entry) {
       body: JSON.stringify(entry),
     });
     if (!res.ok) throw new Error('Response connection not OK');
+    const result = await res.json();
+    return result;
   } catch (err) {
-    console.log(err);
+    console.error(err);
+    return undefined;
+  }
+}
+
+export async function updateEntry(entry: Entry): Promise<Entry | undefined> {
+  try {
+    const res = await fetch(`/api/runs/${entry.runId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(entry),
+    });
+    if (!res.ok) throw new Error('Response connection not OK');
+    const result = await res.json();
+    return result;
+  } catch (err) {
+    console.error(err);
+    return undefined;
+  }
+}
+
+export async function removeEntry(runId: number): Promise<void> {
+  try {
+    const res = await fetch(`/api/runs/${runId}`, {
+      method: 'DELETE',
+    });
+    if (!res.ok) throw new Error('Response connection not OK');
+  } catch (err) {
+    console.error(err);
   }
 }
