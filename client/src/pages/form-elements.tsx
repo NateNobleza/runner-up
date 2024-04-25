@@ -1,5 +1,6 @@
 import { useState, useEffect, FormEvent } from 'react';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 import {
   Entry,
   addEntry,
@@ -11,6 +12,7 @@ import {
 
 export function ElementForm() {
   const { runId } = useParams();
+  const navigate = useNavigate()
   // const [isDeleting, setIsDeleting] = useState(false);
   const [formData, setFormData] = useState<Entry>({
     time: '',
@@ -98,20 +100,18 @@ export function ElementForm() {
       setAllEntries(entries);
       setShowEntries(true);
       setHideForm(true); // Hide form elements when reading all entries
+      navigate('/form-elements')
     } catch (error) {
       console.error('Error:', error);
     }
   };
 
 
-  const handleUpdate = async (entryId: number) => {
-
-  }
-
-
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div>
+      <button onClick={()=> navigate('/')}>Home</button>
+      <form onSubmit={handleSubmit}>
       {!hideForm && (
         <>
           {isLoading ? (
@@ -196,14 +196,12 @@ export function ElementForm() {
                   onClick={() => entry.runId && handleDelete(entry.runId)}>
                   Delete
                 </button>
-                <button type='button' onClick={() => entry.runId && handleUpdate(entry.runId)}>
-                  Update
-                </button>
               </li>
             ))}
           </ul>
         </div>
       )}
     </form>
+  </div>
   );
 }

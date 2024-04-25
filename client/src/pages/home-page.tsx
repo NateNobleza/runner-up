@@ -1,21 +1,16 @@
 import { useState } from 'react';
-import { ElementForm } from './form-elements';
-import { LikedEntries } from './liked-entries';
 
+import { useNavigate } from 'react-router-dom';
+// import {Link} from 'react-router-dom'
 export function HomePage() {
   const [showForm, setShowForm] = useState(false);
   const [showLikedEntries, setShowLikedEntries] = useState(false);
-  const [formData, setFormData] = useState({
-    time: '',
-    distance: '',
-    date: '',
-    weather: '',
-    userId: '',
-  });
 
+  const navigate = useNavigate()
   const handleAddEntryClick = () => {
-    setShowForm(true);
-    setShowLikedEntries(false); // Hide LikedEntries component when Add Entry button is clicked
+    navigate('/form-elements')
+    // setShowForm(true);
+    // setShowLikedEntries(false); // Hide LikedEntries component when Add Entry button is clicked
   };
 
   const handleLikesButtonClick = () => {
@@ -40,8 +35,8 @@ export function HomePage() {
         <button onClick={handleHomeButtonClick}>Home</button>
       )}
 
-      {showForm && <ElementForm formData={formData} setFormData={setFormData} />}
-      {showLikedEntries && <LikedEntries />}
+      {/* {showForm && <ElementForm formData={formData} setFormData={setFormData} />}
+      {showLikedEntries && <LikedEntries />} */}
     </div>
   );
 }
