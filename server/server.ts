@@ -142,7 +142,7 @@ app.get('/api/runs/:runId', async (req, res, next) => {
     if (!Number.isInteger(+runId))
       throw new ClientError(404, 'runId must be a number');
     const sql = `
-    select *
+    select * from
     "runs"
     where "runId" = $1
     `;
@@ -185,6 +185,7 @@ app.post('/api/runs', async (req, res, next) => {
 
 app.put('/api/runs/:runId', async (req, res, next) => {
   try {
+    const userId = '1'
     const { runId } = req.params;
     if (!Number.isInteger(+runId))
       throw new ClientError(400, 'runId must be a number');
@@ -193,8 +194,8 @@ app.put('/api/runs/:runId', async (req, res, next) => {
       throw new ClientError(400, 'time, distance, date, weather needed');
     const sql = `
     update "runs"
-    set "time" = $1, "distance" = $2, "date" = $3, "weather" = $4
-    where "runId" = $5
+    set "time" = $1, "distance" = $2, "date" = $3, "weather" = $4, "userId" = $5
+    where "runId" = $6
     returning *
     `;
     const params = [
@@ -202,6 +203,8 @@ app.put('/api/runs/:runId', async (req, res, next) => {
       distance as string,
       date as string,
       weather as string,
+      userId as string,
+      runId as string
     ];
     const result = await db.query(sql, params);
     const [updatedEntry] = result.rows;

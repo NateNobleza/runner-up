@@ -1,5 +1,5 @@
 export type Entry = {
-  runId?: number;
+  runId?: number | undefined;
   date: string;
   distance: string;
   time: string;
