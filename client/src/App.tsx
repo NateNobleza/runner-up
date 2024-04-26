@@ -1,35 +1,19 @@
-import { useEffect, useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
 import './App.css';
+import { HomePage } from './pages/Home-Page'
+import {Route, Routes} from 'react-router-dom'
+import { Header } from './components/header';
+import { ElementForm } from './pages/Form-Elements';
+import { RunList } from './pages/Run-List';
+import { LikedEntries } from './pages/Liked-Entries';
 
 export default function App() {
-  const [serverData, setServerData] = useState('');
-
-  useEffect(() => {
-    async function readServerData() {
-      const resp = await fetch('/api/hello');
-      const data = await resp.json();
-
-      console.log('Data from server:', data);
-
-      setServerData(data.message);
-    }
-
-    readServerData();
-  }, []);
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>{serverData}</h1>
-    </>
+    <Routes>
+      <Route path='/' element={<Header/>}/>
+        <Route index element={<HomePage/>}/>
+        <Route path='form-elements/:runId' element={<ElementForm/>}/>
+        <Route path='runs-list' element={<RunList/>}/>
+        <Route path='liked-entries' element={<LikedEntries/>}/>
+    </Routes>
   );
 }
