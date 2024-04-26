@@ -52,9 +52,9 @@ const handleUpdate =  (entryId: number) => {
   };
 
 
-  const handleViewLikes = () => {
-    navigate("/liked-entries");
-  };
+  // const handleViewLikes = () => {
+  //   navigate("/liked-entries");
+  // };
 
 
 return(
@@ -72,7 +72,7 @@ return(
             Delete
           </button>
             <button type='button' onClick={() =>handleUpdate(entry.runId)}>Update</button>
-             <button type="button" onClick={() => handleLike(entry.runId)}>Like</button>
+             {/* <button type="button" onClick={() => handleLike(entry.runId)}>Like</button> */}
         </li>
       ))}
     </ul>
