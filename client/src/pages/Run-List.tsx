@@ -1,6 +1,6 @@
 import { useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import { readEntries, removeEntry, type Entry } from "../data";
+import { readEntries, removeEntry, likeEntry, type Entry } from "../data";
 
 export function RunList(){
   const navigate = useNavigate();
@@ -42,12 +42,26 @@ const handleUpdate =  (entryId: number) => {
   navigate(`/form-elements/${entryId}`)
 };
 
+  const handleLike = async (entryId: number) => {
+    try {
+      await likeEntry(entryId);
+      navigate("/liked-entries");
+    } catch (error) {
+      console.error("Error liking entry:", error);
+    }
+  };
+
+
+  const handleViewLikes = () => {
+    navigate("/liked-entries");
+  };
 
 
 return(
   <div>
     <button onClick={()=> navigate('/')}>Home</button>
     <h2>All Entries</h2>
+    <button onClick={handleViewLikes}>View Liked Entries</button>
     <ul>
       {allEntries.map((entry, index) => (
         <li key={index}>
@@ -58,6 +72,7 @@ return(
             Delete
           </button>
             <button type='button' onClick={() =>handleUpdate(entry.runId)}>Update</button>
+             <button type="button" onClick={() => handleLike(entry.runId)}>Like</button>
         </li>
       ))}
     </ul>
