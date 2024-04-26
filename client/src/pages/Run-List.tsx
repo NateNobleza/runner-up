@@ -1,13 +1,12 @@
 import { useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import { readEntries, readEntry, updateEntry, removeEntry, type Entry } from "../data";
-
+import { readEntries, removeEntry, type Entry } from "../data";
 
 export function RunList(){
   const navigate = useNavigate();
  const [allEntries, setAllEntries] = useState<Entry[]>([]);
-  const [showEntries, setShowEntries] = useState(false);
-  const [hideForm, setHideForm] = useState(false); // New state variable
+  // const [showEntries, setShowEntries] = useState(false);
+  // const [hideForm, setHideForm] = useState(false); // New state variable
 
   useEffect(() => {
     // Fetch and populate all entries when the component mounts
@@ -29,9 +28,11 @@ const handleDelete = async (entryId: number) => {
       await removeEntry(entryId);
       // After deleting an entry, refetch all entries to update the list
       fetchAllEntries();
+
     } catch (error) {
       console.error('Error:', error);
     } finally {
+      navigate('/')
       // setIsDeleting(false);
     }
   };
@@ -39,12 +40,13 @@ const handleDelete = async (entryId: number) => {
 
 const handleUpdate =  (entryId: number) => {
   navigate(`/form-elements/${entryId}`)
-
-
 };
+
+
 
 return(
   <div>
+    <button onClick={()=> navigate('/')}>Home</button>
     <h2>All Entries</h2>
     <ul>
       {allEntries.map((entry, index) => (

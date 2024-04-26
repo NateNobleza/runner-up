@@ -46,13 +46,14 @@ export function ElementForm() {
     const newEntry = Object.fromEntries(formData) as unknown as Entry;
 
     try {
-      if (runId) {
+      if (runId !== 'new') {
         updateEntry({ ...newEntry, runId: parseInt(runId, 10) });
         navigate('/runs-list')
       } else {
         addEntry(newEntry)
           .then((newEntry) => {
             console.log('New entry added:', newEntry);
+            navigate('/runs-list')
             // After adding a new entry, refetch all entries to update the list
           })
           .catch((error) => {
