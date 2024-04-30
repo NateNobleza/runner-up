@@ -1,6 +1,6 @@
 import { useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import { readEntries, removeEntry, likeEntry, type Entry } from "../data";
+import { readEntries, removeEntry, type Entry } from "../data";
 
 export function RunList(){
   const navigate = useNavigate();
@@ -42,14 +42,14 @@ const handleUpdate =  (entryId: number) => {
   navigate(`/form-elements/${entryId}`)
 };
 
-  const handleLike = async (entryId: number) => {
-    try {
-      await likeEntry(entryId);
-      navigate("/liked-entries");
-    } catch (error) {
-      console.error("Error liking entry:", error);
-    }
-  };
+  // const handleLike = async (entryId: number) => {
+  //   try {
+  //     await likeEntry(entryId);
+  //     navigate("/liked-entries");
+  //   } catch (error) {
+  //     console.error("Error liking entry:", error);
+  //   }
+  // };
 
 
   // const handleViewLikes = () => {
@@ -58,20 +58,23 @@ const handleUpdate =  (entryId: number) => {
 
 
 return(
-  <div>
-    <button onClick={()=> navigate('/')}>Home</button>
-    <h2>All Entries</h2>
-    <button onClick={handleViewLikes}>View Liked Entries</button>
-    <ul>
+  <div className=" h-screen bg-gray-800 text-center flex flex-col items-center">
+    <button className ='border-white text-white fa fa-home' onClick={()=> navigate('/')}> Home</button>
+    <h2 className ='text-white p-2 text-center'>All Entries</h2>
+    {/* <button onClick={handleViewLikes}>View Liked Entries</button> */}
+    <ul className ='w-1/2 text-white text-center bg-slate-500 '>
       {allEntries.map((entry, index) => (
-        <li key={index}>
+        <li className ='border-2 rounded-md' key={index}>
           {entry.runId} - {entry.time} - {entry.distance} - {entry.date} -{' '}
           {entry.weather}{' '}
-          <button type='button'
-            onClick={() => entry.runId && handleDelete(entry.runId)}>
-            Delete
-          </button>
-            <button type='button' onClick={() =>handleUpdate(entry.runId)}>Update</button>
+              <button className ='text-white border-white flex flex-row' type='button'
+              onClick={() => entry.runId && handleDelete(entry.runId)}>
+              Delete
+              </button>
+                <button className ='text-white border-white flex flex-row' type='button'
+                  onClick={() =>handleUpdate(entry.runId)}>
+                  Update
+                </button>
              {/* <button type="button" onClick={() => handleLike(entry.runId)}>Like</button> */}
         </li>
       ))}
