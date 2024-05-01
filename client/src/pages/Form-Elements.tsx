@@ -72,14 +72,14 @@ export function ElementForm() {
 
   return (
     <div className='flex flex-col items-center h-screen bg-gray-800 '>
-      <div className='p-2 fa-solid fa-house flex justify-center'>
+      <div className='p-2 flex justify-center'>
         <button
-          className="bg-gray-800 text-white	p-2"
+          className="bg-gray-800 text-white	p-2 transform hover:scale-125 fa-solid fa-house"
           onClick={() => navigate('/')}>
           Home
         </button>
       </div>
-      <div className=" w-1/2 border-4 border-slate-500 rounded-md p-4 flex justify-center">
+      <div className=" w-1/2 border-4 border-slate-500 rounded-md p-4 flex justify-center ">
         <form onSubmit={handleSubmit}>
           <div className="flex-col justify-between">
             <div className="justify-between">
@@ -165,7 +165,7 @@ export function ElementForm() {
               </select>
             </div>
             <div className='p-3'>
-            <button className=" p-1 text-white bg-gray-500 fa-solid fa-plus" type="submit">
+            <button className=" p-1 text-white bg-gray-500 fa-solid fa-plus transform hover:scale-125 " type="submit">
               Submit
             </button>
             </div>

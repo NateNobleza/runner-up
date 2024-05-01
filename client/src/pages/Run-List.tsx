@@ -67,13 +67,13 @@ return(
         <li className ='border-2 rounded-md' key={index}>
           {entry.runId} - {entry.time} - {entry.distance} - {entry.date} -{' '}
           {entry.weather}{' '}
-              <button className ='text-white border-white flex flex-row' type='button'
+              <button className ='text-white border-red-700 transform hover:scale-125' type='button'
               onClick={() => entry.runId && handleDelete(entry.runId)}>
               Delete
               </button>
-                <button className ='text-white border-white flex flex-row' type='button'
+                <button className ='text-white border-red-700 transform hover:scale-125' type='button'
                   onClick={() =>handleUpdate(entry.runId)}>
-                  Update
+                   Update
                 </button>
              {/* <button type="button" onClick={() => handleLike(entry.runId)}>Like</button> */}
         </li>
