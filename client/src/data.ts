@@ -69,6 +69,7 @@ export async function updateEntry(entry: Entry): Promise<Entry | undefined> {
 export async function removeEntry(runId: number): Promise<void> {
   try {
     const res = await fetch(`/api/runs/${runId}`, {
+
       method: 'DELETE',
     });
     if (!res.ok) throw new Error('Response connection not OK');

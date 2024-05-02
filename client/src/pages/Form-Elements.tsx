@@ -34,13 +34,12 @@ export function ElementForm() {
   }, [runId]);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    console.log(runId);
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const newEntry = Object.fromEntries(formData) as unknown as Entry;
 
     try {
-      if (runId !== 'new') {
+      if (runId !== 'new' && runId !== undefined) {
         updateEntry({ ...newEntry, runId: parseInt(runId, 10) });
         navigate('/runs-list');
       } else {
@@ -71,26 +70,26 @@ export function ElementForm() {
   }
 
   return (
-    <div className='flex flex-col items-center h-screen bg-gray-800 '>
-      <div className='p-2 flex justify-center'>
+    <div className='flex flex-col items-center h-screen bg-neutral-500'>
+      <div className='p-6 flex justify-center'>
         <button
-          className="bg-gray-800 text-white	p-2 transform hover:scale-125 fa-solid fa-house"
+          className="rounded-md bg-stone-700 text-white	p-2 transform hover:bg-stone-800 hover:scale-105 fa-solid fa-house"
           onClick={() => navigate('/')}>
           Home
         </button>
       </div>
-      <div className=" w-1/2 border-4 border-slate-500 rounded-md p-4 flex justify-center ">
+      <div className=" w-96 border-4 rounded-md p-4 flex justify-center bg-stone-500">
         <form onSubmit={handleSubmit}>
           <div className="flex-col justify-between">
             <div className="justify-between">
-              <div>
+              <div className='p-1 mb-2'>
                 <label className="text-white" htmlFor="time">
-                  Time (HH:MM):
+                  Time:
                 </label>
               </div>
-              <div className='p-1'>
+              <div className='p-1 mb-4'>
                 <input
-                  className="rounded-md"
+                  className="rounded-md p-2 w-48"
                   type="text"
                   id="time"
                   name="time"
@@ -98,20 +97,20 @@ export function ElementForm() {
                   onChange={(e) =>
                     setFormData({ ...formData, time: e.target.value })
                   }
-                  placeholder="HH:MM"
+                  placeholder="Input Minutes "
                 />
               </div>
             </div>
 
             <div>
-              <div className='p-1'>
+              <div className='p-1 mb-2'>
                 <label className="text-white" htmlFor="distance">
                   Distance:
                 </label>
               </div>
               <div>
                 <input
-                  className="rounded-md "
+                  className="rounded-md p-2 w-48 mb-4"
                   type="number"
                   id="distance"
                   name="distance"
@@ -119,20 +118,20 @@ export function ElementForm() {
                   onChange={(e) =>
                     setFormData({ ...formData, distance: e.target.value })
                   }
-                  placeholder="miles"
+                  placeholder="Miles"
                 />
               </div>
             </div>
 
             <div>
-              <div className='p-1'>
+              <div className='p-1 mb-2'>
                 <label className="text-white" htmlFor="date">
                   Date:
                 </label>
               </div>
               <div>
               <input
-                className="rounded-md"
+                className="rounded-md p-2 w-48 mb-4"
                 type="date"
                 id="date"
                 name="date"
@@ -145,27 +144,28 @@ export function ElementForm() {
             </div>
 
             <div>
-              <div className='p-1'>
+              <div className='p-1 mb-2'>
               <label className="text-white" htmlFor="weather">
                 Weather:
               </label>
               </div>
               <select
-                className="rounded-md"
+                className="rounded-md p-2 w-48 mb-4"
                 id="weather"
                 name="weather"
                 value={formData.weather}
                 onChange={(e) =>
-                  setFormData({ ...formData, weather: e.target.value })
+                setFormData({ ...formData, weather: e.target.value })
                 }>
-                <option value="sunny">Sunny</option>
-                <option value="cloudy">Cloudy</option>
-                <option value="rainy">Rainy</option>
-                <option value="windy">Windy</option>
+                <option>Select Weather</option>
+                <option value="Sunny">Sunny</option>
+                <option value="Cloudy">Cloudy</option>
+                <option value="Rainy">Rainy</option>
+                <option value="Windy">Windy</option>
               </select>
             </div>
             <div className='p-3'>
-            <button className=" p-1 text-white bg-gray-500 fa-solid fa-plus transform hover:scale-125 " type="submit">
+            <button className="rounded-md p-2 text-white bg-stone-700 fa-solid fa-plus transform hover:bg-stone-800 hover:scale-105" type="submit">
               Submit
             </button>
             </div>

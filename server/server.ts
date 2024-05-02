@@ -228,7 +228,8 @@ app.delete('/api/runs/:runId', async (req, res, next) => {
     const params = [runId as string];
     const result = await db.query(sql, params);
     const [deletedEntry] = result.rows;
-    if (!deletedEntry) throw new ClientError(400, 'deleted entry not found');
+    if (!deletedEntry) throw new ClientError(404, 'deleted entry not found');
+    res.sendStatus(204)
   } catch (err) {
     next(err);
   }

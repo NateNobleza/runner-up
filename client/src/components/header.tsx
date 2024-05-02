@@ -4,7 +4,7 @@ export function Header(){
 
   return(
     <>
-    <header className='bg-slate-500 min-h-19 text-center text-xl fa-solid fa-person-running w-screen'>Runner UP
+    <header className='bg-stone-400 min-h-12 text-center text-xl fa-solid fa-person-running w-screen items-center pt-2'>Runner UP
       <div className='container'>
         <div>
             <Link to="/">
