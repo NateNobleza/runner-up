@@ -69,6 +69,7 @@ export async function updateEntry(entry: Entry): Promise<Entry | undefined> {
 export async function removeEntry(runId: number): Promise<void> {
   try {
     const res = await fetch(`/api/runs/${runId}`, {
+
       method: 'DELETE',
     });
     if (!res.ok) throw new Error('Response connection not OK');
@@ -77,17 +78,17 @@ export async function removeEntry(runId: number): Promise<void> {
   }
 }
 
-export async function likeEntry(runId: number): Promise<void> {
-  try {
-    const res = await fetch(`/api/runs/${runId}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(entry),
-    });
-    if (!res.ok) throw new Error('Response connection not OK');
-  } catch (err) {
-    console.error(err);
-  }
-}
+// export async function likeEntry(runId: number): Promise<void> {
+//   try {
+//     const res = await fetch(`/api/runs/${runId}`, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(entry),
+//     });
+//     if (!res.ok) throw new Error('Response connection not OK');
+//   } catch (err) {
+//     console.error(err);
+//   }
+// }
