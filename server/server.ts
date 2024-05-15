@@ -9,9 +9,6 @@ import {
 } from './lib/index.js';
 import { ClientRequest } from 'http';
 
-const connectionString =
-  process.env.DATABASE_URL ||
-  `postgresql://${process.env.RDS_USERNAME}:${process.env.RDS_PASSWORD}@${process.env.RDS_HOSTNAME}:${process.env.RDS_PORT}/${process.env.RDS_DB_NAME}`;
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
@@ -158,9 +155,9 @@ app.get('/api/runs/:runId', async (req, res, next) => {
 
 app.post('/api/runs', async (req, res, next) => {
   try {
-    const userId = '1'
+    const userId = '1';
     const { time, distance, date, weather } = req.body;
-    if (!time || !distance || !date || !weather )
+    if (!time || !distance || !date || !weather)
       throw new ClientError(404, 'Entry requires all inputs');
     const sql = `insert into "runs"
     ("time", "distance", "date", "weather", "userId")
@@ -185,7 +182,7 @@ app.post('/api/runs', async (req, res, next) => {
 
 app.put('/api/runs/:runId', async (req, res, next) => {
   try {
-    const userId = '1'
+    const userId = '1';
     const { runId } = req.params;
     if (!Number.isInteger(+runId))
       throw new ClientError(400, 'runId must be a number');
@@ -204,7 +201,7 @@ app.put('/api/runs/:runId', async (req, res, next) => {
       date as string,
       weather as string,
       userId as string,
-      runId as string
+      runId as string,
     ];
     const result = await db.query(sql, params);
     const [updatedEntry] = result.rows;
@@ -229,7 +226,7 @@ app.delete('/api/runs/:runId', async (req, res, next) => {
     const result = await db.query(sql, params);
     const [deletedEntry] = result.rows;
     if (!deletedEntry) throw new ClientError(404, 'deleted entry not found');
-    res.sendStatus(204)
+    res.sendStatus(204);
   } catch (err) {
     next(err);
   }
@@ -238,5 +235,5 @@ app.delete('/api/runs/:runId', async (req, res, next) => {
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
-  process.stdout.write(`\n\napp listening on port ${process.env.PORT}\n\n`);
+  console.log(`\n\napp listening on port ${process.env.PORT}\n\n`);
 });
