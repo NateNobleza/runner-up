@@ -8,7 +8,7 @@ import {
   errorMiddleware,
 } from './lib/index.js';
 import { ClientRequest } from 'http';
-
+console.log(process.env.DATABASE_URL);
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
