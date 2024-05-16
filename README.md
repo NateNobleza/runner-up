@@ -2,36 +2,30 @@
 
 A full stack TypeScript solo project.
 
-## Getting Started
+## Why I built this
 
----
+This app was created for runners who want to track and log their runs to see there progress as they continue to use this full stack application
 
-### Use this template to create a new repo on your GitHub account
+### Technologies used
 
-1. Click the green `Use this template` button, select `Create a new repository`
-   1. Under `Owner` select your username
-   1. Give your repository a name. Name it after your application. The name `full-stack-project` is _not_ a good name.
-   1. (Optional) Add a description
-   1. Leave repository as `Public`
-   1. **DO NOT** Include all branches
-   1. Click the green `Create repository from template` button
+React.js
+Node.js
+Express.js
+PostgreSQL
+Tailwind.css
+Font Awesome
 
----
+### Live Demo
+Try the live application!
+http://ec2-3-20-240-151.us-east-2.compute.amazonaws.com/
 
-### Clone Newly created repo into `lfz-code`
 
-1. From your newly created repo on GitHub, click the green `<> Code` button, then copy **SSH** URL
-1. Open `lfz-code`, click on blue `><` button in bottom left of `lfz-code`
-   1. Select `Clone Repository in Container Volume...`
-   1. Paste **SSH** URL for your repo, click `Clone git repository from URL`
+#### Features
 
----
-
-### Run and test project setup
-
-#### Getting Started
-
-1. Install all dependencies with `npm install`.
+- User can add runs
+- User can view the runs
+- User can update the runs
+- User can delete the runs
 
 #### Create the database
 
