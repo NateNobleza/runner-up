@@ -1,4 +1,4 @@
-# full-stack-project
+# RunnerUp
 
 A full stack TypeScript solo project.
 
