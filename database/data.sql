@@ -10,6 +10,6 @@
 --      ('Build projects', false),
 --      ('Get a job', false);
 insert into "users"
-("username", "hashPassword")
+("userName", "hashPassword")
 values
 ('thisismyusername', 'thisismyhashpassword')
