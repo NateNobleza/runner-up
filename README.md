@@ -27,6 +27,17 @@ http://ec2-3-20-240-151.us-east-2.compute.amazonaws.com/
 - User can update the runs
 - User can delete the runs
 
+#### Visual Representation
+- User can add
+![0C2CD6DF-0549-464C-AC98-4E96ED21776C](https://github.com/NateNobleza/runner-up/assets/154506686/8aa45474-1d04-4f6c-a36d-c5a231c3ce85)
+- User can update
+  ![6E4F4BC1-5BB0-4D51-91D4-AF9D79AE2B46](https://github.com/NateNobleza/runner-up/assets/154506686/37dbe064-56c1-476e-b5f8-6a299a2a8022)
+- User can delete
+  ![B53AC312-4A44-464E-B8CF-57EA5C73A267](https://github.com/NateNobleza/runner-up/assets/154506686/360553a8-e37a-4d17-aedb-b0775b7d9d14)
+
+
+
+
 #### Features to come
 - User can track location
 
