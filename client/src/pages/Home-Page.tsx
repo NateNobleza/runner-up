@@ -15,10 +15,6 @@ export function HomePage() {
           {' '}
           <Link to="/runs-list"> Runs</Link>
         </button>
-
-        {/* <div className='button'>
-          <Link to='/liked-entries'>Liked Entries</Link>
-        </div> */}
       </div>
     </div>
   );

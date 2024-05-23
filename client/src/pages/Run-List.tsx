@@ -38,18 +38,6 @@ export function RunList() {
     navigate(`/form-elements/${entryId}`);
   };
 
-  // const handleLike = async (entryId: number) => {
-  //   try {
-  //     await likeEntry(entryId);
-  //     navigate("/liked-entries");
-  //   } catch (error) {
-  //     console.error("Error liking entry:", error);
-  //   }
-  // };
-
-  // const handleViewLikes = () => {
-  //   navigate("/liked-entries");
-  // };
 
   return (
     <div className=" h-screen bg-neutral-500 text-center flex flex-col items-center">
@@ -62,7 +50,6 @@ export function RunList() {
       </button>
       </div>
       <h2 className="text-white p-2 text-center text-2xl">All Entries</h2>
-      {/* <button onClick={handleViewLikes}>View Liked Entries</button> */}
       <ul className="  text-white text-center space-y-2 text-xl">
         {allEntries.map((entry, index) => (
           <li className=" bg-stone-400 space-y-2 border-4 rounded-md  p-6 flex flex-col" key={index}>
@@ -84,7 +71,6 @@ export function RunList() {
               onClick={() =>entry.runId && handleDelete(entry.runId)}>
               Delete
             </button>
-            {/* <button type="button" onClick={() => handleLike(entry.runId)}>Like</button> */}
           </li>
         ))}
       </ul>
