@@ -9,3 +9,7 @@
 --      ('Learn to code', false),
 --      ('Build projects', false),
 --      ('Get a job', false);
+insert into "users"
+("userName", "hashPassword")
+values
+('thisismyusername', 'thisismyhashpassword')
