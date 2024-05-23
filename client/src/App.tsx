@@ -4,7 +4,7 @@ import {Route, Routes} from 'react-router-dom'
 import { Header } from './components/header';
 import { ElementForm } from './pages/Form-Elements';
 import { RunList } from './pages/Run-List';
-// import { LikedEntries } from './pages/Liked-Entries';
+
 
 export default function App() {
   return (
@@ -14,7 +14,6 @@ export default function App() {
         <Route path='form-elements/:runId' element={<ElementForm/>}/>
         <Route path='runs-list' element={<RunList/>}/>
       </Route>
-        {/* <Route path='liked-entries' element={<LikedEntries/>}/> */}
     </Routes>
   );
 }
